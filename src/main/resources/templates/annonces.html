@@ -1,0 +1,116 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	
+<head>
+<meta charset="utf-8">
+<title>SpringBnb</title>
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="script.js"></script>
+</head>
+<body class="bg-dark">
+
+<!--  -----------------------------------------------      navbar fragment          ------------------------------------- -->
+
+
+	<div th:replace="Home::navbar"></div>
+	
+
+<!--  -----------------------------------------------      container                 ------------------------------------- -->
+	<main>
+
+		<div class="container mt-4">
+			<!--   *****************************************     card title and form findbytitle  !                     *************************************** -->
+			<div class="jumbotron text-center">
+				
+				<h3 class=" m-4">
+					you have  ads to discover here
+				</h3>
+				<!--   *****************************************     select all annonces  !                     *************************************** -->
+				<div class="panel-body">
+					<form th:action="@{/index}" method="get">
+						<label>Mot Clé</label> <input type="text" name="motCle" />
+						<button type="submit" class="btn btn-primary">Chercher !</button>
+
+					</form>
+				</div>
+			</div>
+			<div th:if="${#lists.isEmpty(motCle)}">
+			<div th:if="${listAppat == null}">
+			 --content--
+			</div>
+			
+			<div class="row pt-4 pb-4 mb-4 mt-4 ">
+				<div class="col-sm-6 pt-4 " th:each="a:${listAppat}">
+					<div class="card">
+						<div class="card-body bg-light">
+							<h3 th:text="${a.title}"
+								class="card-title card-title text-center text-warning"></h3>
+							<img th:src="${a.avatar}" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h3 th:text="${a.price}"
+									class="card-title text-center text-warning">$/J</h3>
+								<p th:text="${a.description}" class="card-text"></p>
+								<div
+									th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+									<div th:case="${false }">
+										<a th:href="@{/users/login}" class="btn btn-secondary">You
+											need To log for Booking this ad !</a>
+									</div>
+									<div th:case="${true}">
+										<a th:href="@{/users/detail(id=${a.id})}"
+											class="btn btn-secondary">Booking</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div th:if="${#lists.isEmpty(listAppat)}">
+			   <div class="container "><h2 class="text-center text-warning">You have no ads to match your search my friend !</h2></div>
+			</div>
+			<!--   *****************************************     pagination!                     *************************************** -->
+			<ul class="pagination mb-4">
+				<li th:class="${currentPage==status.index}?'active':'' "
+					class="page-item text-center" th:each="page,status:${pages}">
+					<a th:href="@{/index(page=${status.index})}"
+					class="page-link text-center" th:text="${status.index}"></a>
+
+				</li>
+			</ul>
+		</div>
+	</main>
+	
+	
+<!--    **************************************             Footer             ***********************************************   -->
+
+	<footer th:replace="Home::footer">
+	
+	</footer>
+	
+<!--   ------------------------ - ----------------          Footer            ------------------    -----------------------  -- -->
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="utf-8">
+<title>SpringBnb</title>
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="script.js"></script>
+</head>
+<body class="bg-dark">
+
+	<!--  -----------------------------------------------      navbar fragment          ------------------------------------- -->
+
+
+	<div th:replace="Home::navbar"></div>
+
+
+	<!--  -----------------------------------------------      container                 ------------------------------------- -->
+
+	<main>
+		<!--   *****************************************     user create a nnonce !                     *************************************** -->
+		<div class="container mt-4">
+			<div class="card mb-3 bg-light" style="max-width: 100%"
+				th:each="a:${appartement.appartement}">
+				<div class="row no-gutters">
+					<div class="col-md-4 text-center ">
+						<img th:src="${a.avatar}"
+							class="card-img text-center mt-4 rounded-circle w-50 h-50"
+							alt="...">
+						<p class="card-text text-center m-4">
+							<small class="text-muted m-4"
+								th:text="${a.email}"></small>
+						</p>
+					</div>
+					<div class="col-md-8">
+						<div class="card-body ">
+							<h4 class="card-title text-center text-info "
+								th:text="${a.firstName}"></h4>
+							<p class="card-text text-center"
+								th:text="${a.description}"></p>
+							<p class="card-text text-center">
+								<small class="text-muted"
+									th:text="${a.ville}"></small>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--   *****************************************     aficher detail annonces !                     *************************************** -->
+			<div class="row">
+				<div class="col-8" th:object="${appartement}">
+					<div class="card bg-light">
+						<img th:src="*{avatar}" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title text-center text-info" th:text="*{title}"></h5>
+							<p th:text="*{description}"></p>
+							<p class="card-text">
+								<small class="text-muted" th:text="*{city}"></small>
+							</p>
+						</div>
+					</div>
+				</div>
+				<!--   *****************************************     create a booking !                     *************************************** -->
+				<div class="col-4 bg-light">
+					<h3 class="text-center text-info mt-4">book my stay !</h3>
+					<form th:action="@{/users/saveBooking?id=} + ${appartement.id} + '&email=' + ${#request.userPrincipal.principal.username}" method="post"
+						th:object="${booking}">
+
+						<div class="form-group text-center text-info ">
+							<label>Chek in date</label> <input type="date"
+								th:field="*{startDate}" class="form-control">
+						</div>
+						<div class="form-group text-center text-info ">
+							<label>Chek out date</label> <input type="date"
+								th:field="*{endDate}" class="form-control">
+						</div>
+						<div class="form-group text-center text-info ">
+							<label>Comment</label> <input type="text"
+								th:field="*{description}" class="form-control"
+								placeholder="Your Comment ! ">
+						</div>
+						<div class="form-group text-center text-info ">
+							<input type="text" th:value="${appartement.price}"
+								class="form-control">
+						</div>
+						<div class="form-group text-center text-info ">
+							<input type="text" th:value="${appartement.id}"
+								class="form-control">
+						</div>
+
+						<button type="submit" class="text-center btn btn-info ">Booking
+							!</button>
+					</form>
+
+				</div>
+			</div>
+
+			<!--   *****************************************     create a commentaire !                     *************************************** -->
+			<!-- check if data in my object   -->
+			<!-- <div th:text="${appartement.comment}"></div>  -->
+			<!-- if comment exest show this div  -->
+			<div th:if="${not #lists.isEmpty(appartement.comment)}">
+				
+					<!-- <a th:href="@{/users/detail(id=${appartement.id})}" class="mt-4 text-center btn btn-secondary"> Voir commentaire !</a> -->
+										
+					
+					<div class="card bg-light mt-4 h-25">
+						<h2 class=" m-4 text-secondary text-center">the opinions of
+							the former tenant for this appartement !</h2>
+						<div class="row no-gutters text-center"
+							th:each="a:${appartement.comment}">
+							<div class="col-md-4">
+								<img th:src="@{${a.comment.avatar}}"
+									class="mt-4 text-center card-img card-img rounded-circle w-25 h-25"
+									alt="...">
+								<h5 class=" text-center card-title">
+									<small class="text-center text-muted"
+										th:text="${a.comment.firstName}"></small>
+								</h5>
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<p class="card-text text-center">
+										<small class="text-center text-muted"
+											th:text="${a.description}"> </small>
+									</p>
+									<p class="card-text text-center">
+										<small class="text-center text-muted" th:text="${a.createdAt}"></small>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					 
+			</div>
+			<div th:if="${#lists.isEmpty(appartement.comment)}">
+			   <div class="container text-center m-4"><h4 class="m-4 text-success">this ads do not have any comment yet !</h4></div>
+			</div>
+		</div>
+	</main>
+
+	<!--    **************************************             Footer             ***********************************************   -->
+
+	<footer th:replace="Home::footer"> </footer>
+
+	<!--   ------------------------ - ----------------          Footer            ------------------    -----------------------  -- -->
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<title>SpringBnb</title>
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="script.js"></script>
+</head>
+<body class="bg-dark">
+
+	<!--  -----------------------------------------------      navbar fragment          ------------------------------------- -->
+
+
+	<div th:replace="Home::navbar"></div>
+
+
+	<!--  -----------------------------------------------      container                 ------------------------------------- -->
+
+	<main>
+		<!-- <div th:text="${user}"></div> -->
+		<div class="container mt-4">
+			<div class="card mb-3 bg-light" style="max-width: 100%"
+				th:object="${user}">
+				<div class="row no-gutters">
+					<div class="col-md-4 text-center ">
+						<img th:src="@{*{avatar}}"
+							class="card-img text-center mt-4 rounded-circle w-50 h-50"
+							alt="...">
+						<p class="card-text text-center m-4">
+							<small class="text-muted m-4" th:text="*{email}"></small>
+						</p>
+					</div>
+					<div class="col-md-8">
+						<div class="card-body ">
+							<h4 class="card-title text-center text-info "
+								th:text="*{firstName}"></h4>
+							<p class="card-text text-center" th:text="*{description}"></p>
+							<p class="card-text text-center">
+								<small class="text-muted" th:text="*{ville}"></small>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+		<!--  <p th:text="${user.appartement.length}"></p>-->
+			<!--   *****************************************     aficher les annonces !                     *************************************** -->
+			<div th:if="${not #lists.isEmpty(user.appartement)}">
+			<div class="row pt-4 pb-4 mb-4 mt-4 ">
+				<div class="col-sm-6 pt-4 " th:each="a:${user.appartement}">
+					<div class="card">
+						<div class="card-body bg-light">
+							<h3 th:text="${a.title}"
+								class="card-title card-title text-center text-warning"></h3>
+							<img th:src="${a.avatar}" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h3 th:text="${a.price}"
+									class="card-title text-center text-warning">$/J</h3>
+								<p th:text="${a.description}" class="card-text"></p>
+								<p class="card-text">
+									<a th:href="@{/users/updateAppartement(id=${a.id})}"
+										class="btn btn-secondary">Edit</a> <a class="btn btn-danger"
+										onclick="return confirm('Etes vous sure ?')"
+										th:href="@{/delete(id=${a.id})}">Delete</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- div condition -->
+			</div>
+			
+			
+			<div th:if="${#lists.isEmpty(user.appartement)}">
+			   <div class="container text-center m-4"><h4 class="m-4 text-success">Vous avez pas encore d'annconce !</h4></div>
+			</div>
+		</div>
+	</main>
+	
+
+	<!--    **************************************             Footer             ***********************************************   -->
+
+	<footer th:replace="Home::footer"> </footer>
+
+	<!--   ------------------------ - ----------------          Footer            ------------------    -----------------------  -- -->
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>
