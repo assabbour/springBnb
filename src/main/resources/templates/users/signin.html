@@ -16,18 +16,19 @@
 <script src="script.js"></script>
 </head>
 <body class="bg-dark">
-	
+
 	<!--  -----------------------------------------------      navbar fragment          ------------------------------------- -->
 
 
 	<div th:replace="Home::navbar"></div>
-	
 
-<!--  -----------------------------------------------      container                 ------------------------------------- -->
+
+	<!--  -----------------------------------------------      container                 ------------------------------------- -->
 
 
 	<main>
 		<div class="container mt-4">
+			<!-- 
 			<h2 class="text-center text-primary m-4">Create a new acompte !</h2>
 			<form class="mt-4" th:action="@{/users/saveUser}" method="post"
 				th:object="${user}">
@@ -61,26 +62,27 @@
 					</div>
 					<div class="col">
 						<div class="form-group">
-							<input type="text" class="form-control" th:field="*{avatar}" placeholder="Avatar !"
-								required>
+							<input type="text" class="form-control" th:field="*{avatar}"
+								placeholder="Avatar !" required>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" th:field="*{adress}" placeholder="adress !"
-								required>
+							<input type="text" class="form-control" th:field="*{adress}"
+								placeholder="adress !" required>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" th:field="*{password}" placeholder="Password !"
-								required>
+							<input type="text" class="form-control" th:field="*{password}"
+								placeholder="Password !" required>
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control"
-								placeholder="Password Confirm ! " th:field="*{passwordConfirm}" required>
+								placeholder="Password Confirm ! " th:field="*{passwordConfirm}"
+								required>
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control"
 								placeholder="Description !" th:field="*{description}" required>
 						</div>
-						
+
 					</div>
 
 				</div>
@@ -90,23 +92,52 @@
 				</div>
 			</form>
 		</div>
+		
+		-->
 
-		<!--    **************************************             Footer             ***********************************************   -->
 
-		<footer th:replace="Home::footer"> </footer>
+			<!--   ----------------------------------------      title for errors in signin                     ---------------------  -->
 
-		<!--   ------------------------ - ----------------          Footer            ------------------    -----------------------  -- -->
+			<div class="card">
+				<div class="card-header">
+					<h2 class="text center text-warning ">vous avez déjà un compte
+						existant pour découvrir mon application,</h2>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">Email :</th>
+								<th scope="col">assabbour@hotmail.com</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">mot de pass :</th>
+								<td>password</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item text-center text-secondary">je suis entrain de traiter un bug sur la partie d'inscription , merci pour votre comprenence</li>
+				</ul>
+			</div>
 
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-			crossorigin="anonymous"></script>
+			<!--    **************************************             Footer             ***********************************************   -->
+
+			<footer th:replace="Home::footer"> </footer>
+
+			<!--   ------------------------ - ----------------          Footer            ------------------    -----------------------  -- -->
+
+			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+				integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+				integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+				integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+				crossorigin="anonymous"></script>
 </body>
 </html>
