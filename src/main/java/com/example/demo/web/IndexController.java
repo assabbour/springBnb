@@ -171,7 +171,7 @@ public class IndexController {
 	  model.addAttribute("appartement", aprt);
 	  //create a new booking
 	  model.addAttribute("booking", new Bookings());
-		return "/users/detail";
+		return "users/detail";
 	}
   
   
@@ -187,7 +187,7 @@ public class IndexController {
 	  bookingsRepository.save(booking);
 	  //get the last bookig create 
 	  model.addAttribute("booking",booking);
-	  return "/users/bookingconfirm";
+	  return "users/bookingconfirm";
 
   }
   
@@ -223,7 +223,7 @@ public class IndexController {
  	  Users user = usersRepository.findByEmail(email);
  	  //System.out.println(user.getAdress());
  	  model.addAttribute("user", user);
- 		return "/users/profiluser";
+ 		return "users/profiluser";
  	}
   
   
@@ -234,7 +234,7 @@ public class IndexController {
   @RequestMapping(value = "/users/createUser", method = RequestMethod.GET)
   public String createUser(Model model) {
 	  model.addAttribute("user", new Users());
-      return "/users/signin";
+      return "users/signin";
 
   }
   
@@ -243,7 +243,7 @@ public class IndexController {
 	  
 	  String hashPW = bCryptPasswordEncoder.encode(user.getPassword());
 	  if(bindingResult.hasErrors()) {
-		  return "/users/signin";
+		  return "users/signin";
 	  }
 	  user.setCreatedAt(new Date());
 	  user.setActive(1);
