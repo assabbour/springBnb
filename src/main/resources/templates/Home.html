@@ -14,7 +14,7 @@
 	<link rel="stylesheet" th:href="@{/css/style.css}" />
 <script src="script.js"></script>
 </head>
-<body >
+<body class="text-secondary">
 	<div th:fragment="navbar">
 
 		<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
@@ -158,11 +158,11 @@
 	<!--    **************************************             Footer             ***********************************************   -->
 
 	<footer th:fragment="footer"
-		class="page-footer font-small blue pt-4 pb-4 mt-4 bg-light container">
+		class="page-footer font-small blue pt-4 pb-4 mt-4 bg-secondary">
 		<!-- Copyright -->
-		<div class="footer-copyright text-center py-3">
-			© Welcome to : <a href="https://mdbootstrap.com/education/bootstrap/">
-				SpringBnb.com</a>
+		<div class="footer-copyright text-center text-white py-3">
+			Code source sur github : <a class="text-warning" href="https://github.com/assabbour/springBnb" target="_blank">
+				SprinBnb ! </a>
 		</div>
 		<!-- Copyright -->
 	</footer>

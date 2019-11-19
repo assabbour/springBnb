@@ -32,7 +32,7 @@
 			<form class="mt-4" th:action="@{/users/save?id=} + ${userId}" method="post"
 				th:object="${appartement}">
 				<div class="row">
-					<div class="col">
+					<div class="col-xs-12 col-sm-12 col-lg-6 ">
 						<div class="form-group">
 							<input type="text" class="form-control" th:field="*{title}"
 								placeholder="Title of your annonce !" required> 
@@ -51,7 +51,7 @@
 						</div>
 
 					</div>
-					<div class="col">
+					<div class="col-xs-12 col-sm-12 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control" th:field="*{floor}"
 								placeholder="Floor" required>
