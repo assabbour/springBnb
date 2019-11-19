@@ -12,7 +12,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>SpringBnb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>${project.packaging}</packaging>
 	<name>SpringBnb</name>
 	<description>Test pages dynamique</description>
 
@@ -48,8 +48,8 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-		    <groupId>org.thymeleaf.extras</groupId>
-		    <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -73,15 +73,15 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope> 
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
 			<version>4.3.1</version>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
@@ -90,9 +90,63 @@
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-java8time</artifactId>
 		</dependency>
-		
-		
+
+
 	</dependencies>
+
+
+
+
+
+	<profiles>
+
+		<profile>
+
+			<id>dev</id>
+
+			<activation>
+
+				<activeByDefault>true</activeByDefault>
+
+			</activation>
+
+			<properties>
+
+				<project.packaging>war</project.packaging>
+
+			</properties>
+
+		</profile>
+
+		<profile>
+
+			<id>heroku</id>
+
+			<activation>
+
+				<property>
+
+					<name>env.DYNO</name>
+
+				</property>
+
+			</activation>
+
+			<properties>
+
+				<java.version>1.8</java.version>
+
+				<project.packaging>jar</project.packaging>
+
+			</properties>
+
+		</profile>
+
+	</profiles>
+
+
+
+
 
 	<build>
 		<plugins>
@@ -100,7 +154,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
+
 			<!-- pour deploy -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -113,7 +167,7 @@
 			</plugin>
 
 			<!-- fin deploy -->
-			
+
 		</plugins>
 	</build>
 
