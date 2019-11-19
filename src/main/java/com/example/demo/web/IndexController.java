@@ -99,14 +99,14 @@ public class IndexController {
   public String createAppartement(Model model, String email) {
 	  model.addAttribute("appartement", new Appartements());
       model.addAttribute("userId", this.usersRepository.findByEmail(email).getId());
-      return "/users/create";
+      return "users/create";
 
   }
   
   @RequestMapping(value = "/users/save", method = RequestMethod.POST)
   public String saveAppartement(Integer id,@Valid Appartements aprt,BindingResult bindingResult) {
 	  if(bindingResult.hasErrors()) {
-		  return "/users/create";
+		  return "users/create";
 	  }
 	  // pour get id connetceter par la jointure
 	  aprt.setAppartement(this.usersRepository.getOne(id));
@@ -124,13 +124,13 @@ public class IndexController {
 	public String updateAppartement(Integer id, Model model) {
 	  Appartements aprt = appartementsRepository.getOne(id);
 	  model.addAttribute("appartement", aprt);
-		return "/users/updateApartForm";
+		return "users/updateApartForm";
 	}
   
   @RequestMapping(value = "/users/updateSaveAppartement", method = RequestMethod.POST)
   public String updateSaveAppartement(String email, Integer id,@Valid Appartements aprt,BindingResult bindingResult) {
 	  if(bindingResult.hasErrors()) {
-		  return "/users/updateApartForm";
+		  return "users/updateApartForm";
 	  }
 	  //aprt.setAppartement(this.usersRepository.getOne(id));
 	  aprt.setAppartement(this.usersRepository.findByEmail(email));
